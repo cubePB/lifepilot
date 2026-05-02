@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LifePilot — Your thinking companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app">
+
+      <header class="header">
+        <div class="logo">
+          <div class="logo-mark">LP</div>
+          <span class="logo-name">LifePilot</span>
+        </div>
+        <span class="saved-count"><strong id="reviewCount">0</strong> saved</span>
+      </header>
+
+      <div class="hero">
+        <h1>Turn messy notes<br><em>into real clarity.</em></h1>
+        <p class="hero-sub">Paste anything — half-finished thoughts, scattered plans, overwhelming ideas. Pilot will make sense of it.</p>
+      </div>
+
+      <div class="workspace">
+
+        <div class="input-card">
+          <div class="input-top">
+            <label class="input-label" for="noteInput">Your notes</label>
+            <button class="link-btn" id="exampleButton" type="button">See an example</button>
+          </div>
+          <textarea id="noteInput" placeholder="Just dump it all here. Don't clean it up — that's Pilot's job..."></textarea>
+          <div class="input-row">
+            <input id="contextInput" type="text" placeholder="Context (optional: work, school, personal...)">
+            <select id="styleInput">
+              <option value="practical">Practical</option>
+              <option value="coach">Coach</option>
+              <option value="founder">Founder</option>
+            </select>
+          </div>
+          <div class="input-actions">
+            <button class="btn-main" id="analyzeButton" type="button">
+              <span class="btn-icon">✦</span>
+              <span id="btnText">Ask Pilot</span>
+            </button>
+            <button class="btn-clear" id="freshButton" type="button">Clear</button>
+          </div>
+        </div>
+
+        <div class="response-card">
+
+          <div class="empty-state" id="emptyState">
+            <div class="pilot-orb">✦</div>
+            <h2>Hi, I'm Pilot.</h2>
+            <p>Share what's on your mind.<br>I'll help you figure out what matters.</p>
+          </div>
+
+          <div class="thinking-state" id="thinkingState" hidden>
+            <div class="pilot-orb pulse">✦</div>
+            <p class="thinking-text">Reading your notes<span class="ellipsis"></span></p>
+          </div>
+
+          <div class="pilot-output" id="pilotOutput" hidden>
+
+            <div class="output-header">
+              <div class="pilot-orb small">✦</div>
+              <div class="output-header-text">
+                <strong>Pilot</strong>
+                <span class="style-tag" id="styleTag">Practical</span>
+              </div>
+            </div>
+
+            <div class="main-message">
+              <p id="mainTakeaway"></p>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">What's going on</p>
+              <p class="section-text" id="cleanSummary"></p>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">I'm picking up on</p>
+              <div class="themes" id="themeChips"></div>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">Here's what I'd do next</p>
+              <ol class="steps" id="nextSteps"></ol>
+            </div>
+
+            <div class="split-section">
+              <div class="output-section">
+                <p class="section-label">Watch out for</p>
+                <ul class="plain-list" id="risksList"></ul>
+              </div>
+              <div class="output-section">
+                <p class="section-label">Worth asking yourself</p>
+                <ul class="plain-list" id="questionsList"></ul>
+              </div>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">Pulled from your note</p>
+              <div class="buckets" id="bucketGrid"></div>
+            </div>
+
+            <button class="btn-save" id="saveButton" type="button">Save this review</button>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="history-wrap" id="historyWrap" hidden>
+        <div class="history-header">
+          <h3>Past reviews</h3>
+          <button class="link-btn danger" id="clearHistory" type="button">Clear all</button>
+        </div>
+        <div class="history-grid" id="historyList"></div>
+      </div>
+
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <template id="historyTemplate">
+      <div class="history-card">
+        <button class="hcard-main" type="button">
+          <span class="hcard-type"></span>
+          <strong></strong>
+          <p></p>
+        </button>
+        <button class="hcard-delete" type="button">✕</button>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
