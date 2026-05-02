@@ -65,6 +65,17 @@ Non-negotiable rules:
 // ------------------------------------------------------------
 // State
 // ------------------------------------------------------------
+
+function loadReviews() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (err) {
+    console.error("Failed to load reviews:", err);
+    return [];
+  }
+}
+
 let reviews = loadReviews();
 let currentReview = null;
 let isAnalyzing = false;
