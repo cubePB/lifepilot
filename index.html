@@ -3,132 +3,140 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LifePilot</title>
+    <title>LifePilot — Your thinking companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="app">
-      <header class="top">
-        <p class="brand">LifePilot</p>
-        <h1>Paste scrambled notes, gain clarity</h1>
-        <div class="mini-stats" aria-label="Saved review stats">
-          <span><strong id="reviewCount">0</strong> saved</span>
-          <span id="mainFocus">None yet</span>
+    <div class="app">
+
+      <header class="header">
+        <div class="logo">
+          <div class="logo-mark">LP</div>
+          <span class="logo-name">LifePilot</span>
         </div>
+        <span class="saved-count"><strong id="reviewCount">0</strong> saved</span>
       </header>
 
-      <section class="board">
-        <section class="panel notes-panel" aria-labelledby="notesTitle">
-          <div class="panel-head">
-            <h2 id="notesTitle">Notes</h2>
-            <button class="button small" type="button" id="exampleButton">Example</button>
+      <div class="hero">
+        <h1>Turn messy notes<br><em>into real clarity.</em></h1>
+        <p class="hero-sub">Paste anything — half-finished thoughts, scattered plans, overwhelming ideas. Pilot will make sense of it.</p>
+      </div>
+
+      <div class="workspace">
+
+        <div class="input-card">
+          <div class="input-top">
+            <label class="input-label" for="noteInput">Your notes</label>
+            <button class="link-btn" id="exampleButton" type="button">See an example</button>
           </div>
-
-          <textarea id="noteInput" rows="14" placeholder="Paste messy notes, thoughts, plans, or ideas here..."></textarea>
-
-          <div class="controls">
-            <label>
-              Context
-              <input id="contextInput" type="text" placeholder="Optional">
-            </label>
-            <label>
-              Style
-              <select id="styleInput">
-                <option value="practical">Practical</option>
-                <option value="coach">Coach</option>
-                <option value="founder">Founder</option>
-              </select>
-            </label>
+          <textarea id="noteInput" placeholder="Just dump it all here. Don't clean it up — that's Pilot's job..."></textarea>
+          <div class="input-row">
+            <input id="contextInput" type="text" placeholder="Context (optional: work, school, personal...)">
+            <select id="styleInput">
+              <option value="practical">Practical</option>
+              <option value="coach">Coach</option>
+              <option value="founder">Founder</option>
+            </select>
           </div>
-
-          <div class="actions">
-            <button class="button primary" type="button" id="analyzeButton">Analyze Notes</button>
-            <button class="button" type="button" id="freshButton">New</button>
+          <div class="input-actions">
+            <button class="btn-main" id="analyzeButton" type="button">
+              <span class="btn-icon">✦</span>
+              <span id="btnText">Ask Pilot</span>
+            </button>
+            <button class="btn-clear" id="freshButton" type="button">Clear</button>
           </div>
-        </section>
-
-        <section class="panel output-panel" aria-labelledby="outputTitle">
-          <div class="panel-head">
-            <h2 id="outputTitle">Advice / Output from the AI</h2>
-            <span class="pill" id="confidencePill">AI review</span>
-          </div>
-
-          <div class="empty-review" id="emptyReview">
-            <p>Your AI advice will appear here.</p>
-          </div>
-
-          <article class="review" id="reviewOutput" hidden>
-            <div class="review-head">
-              <p class="eyebrow" id="reviewType">Review</p>
-              <h3 id="reviewTitle"></h3>
-            </div>
-
-            <section class="takeaway">
-              <h4>Main Advice</h4>
-              <p id="mainTakeaway"></p>
-            </section>
-
-            <section class="summary">
-              <h4>Summary</h4>
-              <p id="cleanSummary"></p>
-            </section>
-          </article>
-        </section>
-      </section>
-
-      <details class="details-drawer">
-        <summary>Details</summary>
-
-        <div class="details-grid">
-          <section class="detail-card">
-            <h2>Themes</h2>
-            <div class="chip-row" id="themeChips"></div>
-          </section>
-
-          <section class="detail-card">
-            <h2>Next Steps</h2>
-            <ol id="nextSteps"></ol>
-          </section>
-
-          <section class="detail-card">
-            <h2>Watch-outs</h2>
-            <ul id="risksList"></ul>
-          </section>
-
-          <section class="detail-card">
-            <h2>Questions</h2>
-            <ul id="questionsList"></ul>
-          </section>
-
-          <section class="detail-card wide">
-            <h2>Organized Details</h2>
-            <div class="bucket-grid" id="bucketGrid"></div>
-          </section>
-
-          <section class="detail-card wide">
-            <div class="history-top">
-              <h2>Saved Reviews</h2>
-              <button class="button subtle" type="button" id="clearHistory">Clear</button>
-            </div>
-            <div class="history-list" id="historyList"></div>
-          </section>
         </div>
-      </details>
-    </main>
+
+        <div class="response-card">
+
+          <div class="empty-state" id="emptyState">
+            <div class="pilot-orb">✦</div>
+            <h2>Hi, I'm Pilot.</h2>
+            <p>Share what's on your mind.<br>I'll help you figure out what matters.</p>
+          </div>
+
+          <div class="thinking-state" id="thinkingState" hidden>
+            <div class="pilot-orb pulse">✦</div>
+            <p class="thinking-text">Reading your notes<span class="ellipsis"></span></p>
+          </div>
+
+          <div class="pilot-output" id="pilotOutput" hidden>
+
+            <div class="output-header">
+              <div class="pilot-orb small">✦</div>
+              <div class="output-header-text">
+                <strong>Pilot</strong>
+                <span class="style-tag" id="styleTag">Practical</span>
+              </div>
+            </div>
+
+            <div class="main-message">
+              <p id="mainTakeaway"></p>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">What's going on</p>
+              <p class="section-text" id="cleanSummary"></p>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">I'm picking up on</p>
+              <div class="themes" id="themeChips"></div>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">Here's what I'd do next</p>
+              <ol class="steps" id="nextSteps"></ol>
+            </div>
+
+            <div class="split-section">
+              <div class="output-section">
+                <p class="section-label">Watch out for</p>
+                <ul class="plain-list" id="risksList"></ul>
+              </div>
+              <div class="output-section">
+                <p class="section-label">Worth asking yourself</p>
+                <ul class="plain-list" id="questionsList"></ul>
+              </div>
+            </div>
+
+            <div class="output-section">
+              <p class="section-label">Pulled from your note</p>
+              <div class="buckets" id="bucketGrid"></div>
+            </div>
+
+            <button class="btn-save" id="saveButton" type="button">Save this review</button>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="history-wrap" id="historyWrap" hidden>
+        <div class="history-header">
+          <h3>Past reviews</h3>
+          <button class="link-btn danger" id="clearHistory" type="button">Clear all</button>
+        </div>
+        <div class="history-grid" id="historyList"></div>
+      </div>
+
+    </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <template id="historyTemplate">
-      <article class="history-card">
-        <button class="history-main" type="button">
-          <span class="history-type"></span>
+      <div class="history-card">
+        <button class="hcard-main" type="button">
+          <span class="hcard-type"></span>
           <strong></strong>
           <p></p>
         </button>
-        <button class="delete-review" type="button">Delete</button>
-      </article>
+        <button class="hcard-delete" type="button">✕</button>
+      </div>
     </template>
 
-    <script defer src="app.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
