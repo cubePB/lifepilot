@@ -78,7 +78,7 @@ function clearNote() {
 }
 
 function loadExample() {
-  els.noteInput.value = "Ok so I have way too much on my plate right now. I need to finish the LifePilot app and get it ready to launch, also need to call my mom back, haven't done that in weeks. Work is stressing me out — my boss keeps adding stuff without removing anything. I want to start working out again but can't find the time. Also I owe my friend $200. Feel like I'm spinning plates and dropping all of them.";
+  els.noteInput.value = "Work is stressing me out — my boss keeps adding stuff without removing anything. I want to start working out again but can't find the time. Also I owe my friend $200. Feel like I'm spinning plates and dropping all of them.";
   els.contextInput.value = "personal + work";
   els.styleInput.value = "coach";
 }
