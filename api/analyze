@@ -1,5 +1,12 @@
 export default async function handler(req, res) {
-  // Only allow POST requests
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -16,38 +23,29 @@ You are not a robot or a corporate assistant. You are like that one brilliant fr
 
 Your tone is warm, direct, and human. Speak like a real person — not a consultant, not a motivational poster, and not a generic AI. You care about the actual person behind the notes.
 
-Review styles — adjust your tone based on what the user selected:
+Review styles:
 - practical: Clear and efficient. No fluff. Just what matters and what to do next.
 - coach: Warm and encouraging. Acknowledge the person's situation. Make the path forward feel real and doable.
 - founder: Sharp and strategic. Think like a smart operator. Challenge assumptions. Push for specificity.
 
-Your task:
-Read the user's messy notes carefully. Understand what is REALLY going on — not just the surface words, but the underlying situation, feelings, and needs. Then respond like a wise friend would.
-
 Return ONLY a valid JSON object. No preamble, no explanation, no markdown fences. Just raw JSON.
 
-Return exactly this structure:
 {
   "type": "one of: Business idea | Work note | Money note | School note | Personal note | Project note | General note",
   "title": "short clear title, max 72 characters",
-  "takeaway": "Speak directly to the person like a wise, caring friend. Reference their specific words and situation. Give them the one most important thing to hold onto right now. Second person (you/your). 2-3 sentences. Warm, honest, human — never generic.",
-  "summary": "2-3 sentence plain summary of what is actually going on in their notes",
-  "themes": ["3 to 6 single-word themes that reflect what the note is really about"],
-  "nextSteps": ["2-5 concrete action steps written as friendly direct suggestions"],
-  "risks": ["1-4 honest, specific watch-outs tied to their actual situation — not generic warnings"],
-  "questions": ["1-5 thoughtful questions that would genuinely help them think more clearly"],
+  "takeaway": "Speak directly to the person like a wise caring friend. Reference their specific words. 2-3 sentences. Warm, honest, human — never generic.",
+  "summary": "2-3 sentence plain summary of what is actually going on",
+  "themes": ["3 to 6 single-word themes"],
+  "nextSteps": ["2-5 concrete action steps"],
+  "risks": ["1-4 specific watch-outs"],
+  "questions": ["1-5 thoughtful questions"],
   "buckets": {
-    "Actions": ["direct action items found in the note"],
+    "Actions": ["action items found in the note"],
     "Dates": ["any date or time reference — empty array if none"],
-    "Money": ["any money or cost detail — empty array if none"],
+    "Money": ["any money detail — empty array if none"],
     "People": ["any person or role mentioned — empty array if none"]
   }
-}
-
-Rules:
-- takeaway must feel personal and human — never generic.
-- Empty buckets get [] — never use placeholder text.
-- After reading your response, the person should feel heard, clearer, and ready to act.`;
+}`;
 
   let userMessage = `Review style: ${style || "practical"}\n\n`;
   if (context) userMessage += `Context: ${context}\n\n`;
@@ -78,8 +76,6 @@ Rules:
 
     const data = await response.json();
     const text = data.choices?.[0]?.message?.content || "";
-
-    // Strip markdown fences if present
     const clean = text.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
     const parsed = JSON.parse(clean);
 
