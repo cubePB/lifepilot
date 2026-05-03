@@ -123,7 +123,7 @@ a { color: inherit; }
 /* ─── Workspace ─── */
 .workspace {
   display: grid;
-  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1.2fr);
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   align-items: start;
 }
